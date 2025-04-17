@@ -18,7 +18,7 @@ public class PlayerMouseControl : MonoBehaviour
     void Update()
     {
         float distToTarget = Vector3.Distance(transform.position, targetPosition);
-        if (distToTarget > 1f)
+        if (distToTarget > 1f && PlayerHealth.isAlive)
         {
             Vector3 targetDirection = UnityEngine.Vector3.Normalize(targetPosition - transform.position);
             characterController.Move(targetDirection * moveSpeed * Time.deltaTime);
@@ -40,6 +40,11 @@ public class PlayerMouseControl : MonoBehaviour
                 Debug.Log("hit: "+ hit.collider.name);
                 targetPosition = hit.point;
             }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            animator.SetTrigger("chop");
         }
     }
 }
